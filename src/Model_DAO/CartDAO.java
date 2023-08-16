@@ -12,22 +12,29 @@ public class CartDAO {
 			ConnectDB cn = new ConnectDB();
 			cn.Connect();
 			
-			String sql = "INSERT INTO Carts(customerID) VALUES (?)";
+			String sql = "DECLARE @cartID int\r\n"
+					+ "SELECT @cartID = cartID FROM Carts WHERE customerID = ?\r\n"
+					+ "IF(@cartID IS NULL)\r\n"
+					+ "BEGIN\r\n"
+					+ "		INSERT INTO Carts(customerID)\r\n"
+					+ "    	VALUES(?);SELECT SCOPE_IDENTITY() as cartID;"
+					+ "END\r\n"
+					+ "ELSE\r\n"
+					+ "BEGIN\r\n"
+					+ "	SELECT @cartID as cartID\r\n"
+					+ "END";
 			
-			PreparedStatement cmd = cn.cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement cmd = cn.cn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			cmd.setLong(1, customerID);
+			cmd.setLong(2, customerID);
 			
-			int rowsAffected  = cmd.executeUpdate();
-			System.out.println(rowsAffected);
-	        if (rowsAffected  > 0) {
-	        	ResultSet resultSet = cmd.getGeneratedKeys();
-	            if (resultSet.next()) {
-	                generatedId = resultSet.getLong(1);
-	                cmd.close();
-	                cn.cn.close();
-	                return generatedId;
-	            }
-	        }
+			ResultSet rs = cmd.executeQuery();
+			if(rs.next()) {
+				generatedId = rs.getLong("cartID");
+			}
+			cmd.close();
+			cn.cn.close();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

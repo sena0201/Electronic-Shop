@@ -46,10 +46,15 @@ public class AddtocartController extends HttpServlet {
 				long cartID = cartBO.CreateCart(user.getCustomerID());
 				if(productID != null && quantity != null && unitPrice != null) {
 					if(cartID != 0) {
-						cartDetailBO.AddToCartDetail(cartID, Long.parseLong(productID), Long.parseLong(quantity), Long.parseLong(unitPrice)*Long.parseLong(quantity));
-						request.setAttribute("warning", "Success!");
-						session.setAttribute("count", cartBO.CountCartDetail(user.getCustomerID()));
-						request.getRequestDispatcher("ProductController?productid="+productID).forward(request, response);
+						int check = cartDetailBO.AddToCartDetail(cartID, Long.parseLong(productID), Long.parseLong(quantity), Long.parseLong(unitPrice)*Long.parseLong(quantity));
+						if(check > 0) {
+							request.setAttribute("warning", "Success!");
+							session.setAttribute("count", cartBO.CountCartDetail(user.getCustomerID()));
+							request.getRequestDispatcher("ProductController?productid="+productID).forward(request, response);
+						}else {
+							request.setAttribute("warning", "Failed!");
+							request.getRequestDispatcher("ProductController").forward(request, response);
+						}
 					}
 					else {
 						request.setAttribute("warning", "Failed!");

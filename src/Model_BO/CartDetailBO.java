@@ -4,7 +4,7 @@ import Model_DAO.CartDetailDAO;
 
 public class CartDetailBO {
 	CartDetailDAO cartDetailDAO = new CartDetailDAO();
-	public void AddToCartDetail(long cartID, long productID,long quantity, long salePrice) throws Exception{
-		cartDetailDAO.AddToCartDetail(cartID, productID, quantity, salePrice);
+	public int AddToCartDetail(long cartID, long productID,long quantity, long salePrice) throws Exception{
+		return cartDetailDAO.AddToCartDetail(cartID, productID, quantity, salePrice);
 	}
 }
