@@ -17,7 +17,7 @@
             <div class="header__right">
                 <div class="cart">
                 	<a href="#"><i class='bx bx-cart'></i></a>
-                	<%if(count != 0){ %>
+                	<%if(user != null && count != 0){ %>
                 		<div class="cart__quantity"><%=count %></div>
                 	<%} %>	
                 </div>

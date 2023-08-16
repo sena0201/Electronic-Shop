@@ -229,7 +229,6 @@
 
 .home__product-items:hover {
     transform: translateY(-8px);
-    cursor: pointer;
     transition: all 0.25s ease;
 }
 

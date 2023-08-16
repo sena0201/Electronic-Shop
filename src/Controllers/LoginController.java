@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
 				}
 				else {
 					session.setAttribute("user", (CustomerBEAN)customer);
-					session.setAttribute("count", cartBO.CountCartDetail(customer.getCustomerID()));
+					session.setAttribute("count", (int)cartBO.CountCartDetail(customer.getCustomerID()));
 					request.getRequestDispatcher("HomeController").forward(request, response);
 				}
 			}

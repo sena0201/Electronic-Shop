@@ -110,14 +110,8 @@
 	                </div>
 	                <div class="page">
 	                	<div class="main-page">
-	                		<%if(nowPage != null && Integer.parseInt(nowPage) > 1){ %>
-		                		<a href="ShopController?page=<%=Integer.parseInt(nowPage)-1%>">Previous</a>
-		                	<%} %>
 		                	<%for(int i = 1; i<=endPage;i++){ %>
 		                		<a href="ShopController?<%=(categoryID == null)?"": "categoryID="+categoryID+"&"%><%=(filter == null)?"":"filter="+filter+"&"%>page=<%=i%>"><%=i %></a>
-		                	<%} %>
-		                	<%if((nowPage != null && Integer.parseInt(nowPage) != endPage && Integer.parseInt(nowPage) > 1) || nowPage == null){ %>
-			                	<a href="ShopController?page=<%=(nowPage == null) ? 2 : Integer.parseInt(nowPage)+1%>">Next</a>	                		
 		                	<%} %>
 	                	</div>
 	                </div>
