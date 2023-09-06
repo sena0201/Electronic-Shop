@@ -88,4 +88,72 @@ public class CustomerDAO {
 		
 		return rowsAffected;
 	}
+	
+	public CustomerBEAN Customer(long customerID) throws Exception{
+		CustomerBEAN customer = new CustomerBEAN();
+		
+		ConnectDB cn = new ConnectDB();
+		cn.Connect();
+		
+		String sql = "SELECT * FROM Customers WHERE customerID = ?";
+		
+		PreparedStatement cmd = cn.cn.prepareStatement(sql);
+		cmd.setLong(1, customerID);
+		
+		ResultSet rs = cmd.executeQuery();
+		
+		while(rs.next()) {
+			String customerName = rs.getString("customerName");
+			String address = rs.getString("address"); 
+			String phoneNumber = rs.getString("phoneNumber"); 
+			String userName = rs.getString("userName");
+			String password = rs.getString("password"); 
+			String role = rs.getString("role");
+			customer = new CustomerBEAN(customerID,customerName,address,phoneNumber,userName,password,role);
+		}
+		
+		rs.close();
+		cn.cn.close();
+		
+		return customer;
+	}
+	
+	public int EditCustomer(long customerID ,String customerName, String address, String phoneNumber, String password) throws Exception{
+		ConnectDB cn = new ConnectDB();
+		cn.Connect();
+		
+		String sql ="UPDATE Customers SET customerName = ? , address = ?, phoneNumber = ?, password = ?\r\n"
+				+ "WHERE customerID = ?";
+		
+		PreparedStatement cmd = cn.cn.prepareStatement(sql);
+		cmd.setString(1, customerName);
+		cmd.setString(2, address);
+		cmd.setString(3, phoneNumber);
+		cmd.setString(4, password);
+		cmd.setLong(5, customerID);
+		
+		int rowAffected = 0;
+		
+		rowAffected = cmd.executeUpdate();
+		
+		cmd.close();
+		cn.cn.close();
+		return rowAffected;
+	}
+	
+	public int DeleteCustomer(long customerID) throws Exception{
+		ConnectDB cn = new ConnectDB();
+		cn.Connect();
+		String sql = "DELETE FROM Customers WHERE customerID = ?";
+		PreparedStatement cmd = cn.cn.prepareStatement(sql);
+		cmd.setLong(1, customerID);
+		
+		int rowAffected = 0;
+		
+		rowAffected = cmd.executeUpdate();
+		
+		cmd.close();
+		cn.cn.close();
+		return rowAffected;
+	}
 }

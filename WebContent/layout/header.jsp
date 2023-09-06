@@ -11,12 +11,12 @@
                 <ul class="nav-list">
                     <li><a href="HomeController">Home</a></li>
                     <li><a href="ShopController">Shop</a></li>
-                    <li><a href="">Purchase history</a></li>
+                    <li><a href="PurchaseController">Purchased</a></li>
                 </ul>
             </nav>
             <div class="header__right">
                 <div class="cart">
-                	<a href="#"><i class='bx bx-cart'></i></a>
+                	<a href="CartController"><i class='bx bx-cart'></i></a>
                 	<%if(user != null && count != 0){ %>
                 		<div class="cart__quantity"><%=count %></div>
                 	<%} %>	

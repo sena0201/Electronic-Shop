@@ -1,4 +1,9 @@
 eclipse.preferences.version=1
+encoding//WebContent/layout/admin/sidebar.jsp=UTF-8
 encoding//WebContent/layout/header.jsp=UTF-8
+encoding//src/Controllers/AdAddProductController.java=UTF-8
+encoding//src/Controllers/AdEditProductController.java=UTF-8
+encoding//src/Controllers/AddEmployeeController.java=UTF-8
+encoding//src/Controllers/EditEmployeeController.java=UTF-8
 encoding//src/Controllers/LoginController.java=UTF-8
 encoding//src/Model_DAO/CartDetailDAO.java=UTF-8

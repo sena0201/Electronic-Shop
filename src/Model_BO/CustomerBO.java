@@ -18,4 +18,15 @@ public class CustomerBO {
 	public long CustomerRegister(String customerName, String address, String phoneNumber, String userName, String password) throws Exception{
 		return customerDAO.CustomerRegister(customerName, address, phoneNumber, userName, password);
 	}
+	
+	public CustomerBEAN Customer(long customerID) throws Exception{
+		return customerDAO.Customer(customerID);
+	}
+	
+	public int EditCustomer(long customerID ,String customerName, String address, String phoneNumber, String password) throws Exception{
+		return customerDAO.EditCustomer(customerID, customerName, address, phoneNumber, password);
+	}
+	public int DeleteCustomer(long customerID) throws Exception{
+		return customerDAO.DeleteCustomer(customerID);
+	}
 }

@@ -105,7 +105,7 @@ public class ProductDAO {
 		PreparedStatement cmd = cn.cn.prepareStatement(sql);
 		
 		cmd.setLong(1, categoryID);
-		cmd.setInt(2, index);
+		cmd.setInt(2, (index-1)*pageSize);
 		cmd.setInt(3, pageSize);
 		
 		
@@ -190,5 +190,61 @@ public class ProductDAO {
 		cn.cn.close();
 		
 		return List;
+	}
+	
+	public int AddProduct(String productName, long quantity, long unitPrice, String unit, long categoryID, String photo) throws Exception{
+		ConnectDB cn = new ConnectDB();
+		cn.Connect();
+		String sql = "INSERT INTO Products(productName, quantity, unitPrice, unit, photo, categoryID) VALUES (?,?,?,?,?,?)";
+		PreparedStatement cmd = cn.cn.prepareStatement(sql);
+		cmd.setString(1, productName);
+		cmd.setLong(2, quantity);
+		cmd.setLong(3, unitPrice);
+		cmd.setString(4, unit);
+		cmd.setString(5, photo);
+		cmd.setLong(6, categoryID);
+		
+		int rowAffected = 0;
+		rowAffected = cmd.executeUpdate();
+		
+		cmd.close();
+		cn.cn.close();
+		return rowAffected;
+	}
+	
+	public int Edit(long productID, String productName, long quantity, long unitPrice, String unit, String photo, long categoryID) throws Exception {
+		ConnectDB cn = new ConnectDB();
+		cn.Connect();
+		String sql = "UPDATE Products SET productName = ?, quantity = ?, unitPrice = ?, unit = ?, photo = ?, categoryID = ? WHERE productID = ? ";
+		PreparedStatement cmd = cn.cn.prepareStatement(sql);
+		cmd.setString(1, productName);
+		cmd.setLong(2, quantity);
+		cmd.setLong(3, unitPrice);
+		cmd.setString(4, unit);
+		cmd.setString(5, photo);
+		cmd.setLong(6, categoryID);
+		cmd.setLong(7, productID);
+		
+		int rowAffected = 0;
+		rowAffected = cmd.executeUpdate();
+		
+		cmd.close();
+		cn.cn.close();
+		return rowAffected;
+	}
+	
+	public int Delete(long productID) throws Exception{
+		ConnectDB cn = new ConnectDB();
+		cn.Connect();
+		String sql = "DELETE FROM Products WHERE productID = ?";
+		PreparedStatement cmd = cn.cn.prepareStatement(sql);
+		cmd.setLong(1, productID);
+		
+		int rowAffected = 0;
+		rowAffected = cmd.executeUpdate();
+		
+		cmd.close();
+		cn.cn.close();
+		return rowAffected;
 	}
 }

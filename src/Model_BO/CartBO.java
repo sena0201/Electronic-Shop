@@ -1,5 +1,8 @@
 package Model_BO;
 
+import java.util.ArrayList;
+
+import Model_BEAN.NowCartBEAN;
 import Model_DAO.CartDAO;
 
 public class CartBO {
@@ -10,5 +13,17 @@ public class CartBO {
 	
 	public int CountCartDetail(long customerID) throws Exception{
 		return cartDAO.CountCartDetail(customerID);
+	}
+	
+	public ArrayList<NowCartBEAN> ListOfCarts(long customerID) throws Exception{
+		return cartDAO.ListOfCarts(customerID);
+	}
+	
+	public int DeleteFromCart(long cartID, long productID) throws Exception{
+		return cartDAO.DeleteFromCart(cartID, productID);
+	}
+	
+	public long GetCartID(long customerID) throws Exception{
+		return cartDAO.GetCartID(customerID);
 	}
 }

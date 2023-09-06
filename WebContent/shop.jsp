@@ -88,7 +88,14 @@
 			                        <div class="home__product-details">
 			                            <p class="home__product-name"><%=product.getProductName() %></p>
 			                            <p class="home__product-price"><%=product.getUnitPrice() %></p>
-			                            <a class="home__product-btn" href="ProductController?productid=<%=product.getProductID()%>">Xem chi tiết</a>
+			                            <div style="display: flex;justify-content: flex-end;gap:10px;align-items: center">
+			                            	<a class="home__product-btn" href="ProductController?productid=<%=product.getProductID()%>">Xem chi tiết</a>
+			                            	<form action="AddtocartController" method="post">
+			                            		<input type="hidden" name="productID" value="<%=product.getProductID()%>">
+			                            		<input type="hidden" name="unitPrice" value="<%=product.getUnitPrice()%>">
+			                            		<button class="addtocart-btn" style="padding:5px 10px;background-color: #56B280;color:#fff;border-radius: 6px;border:none;outline: none;"><i class='bx bx-cart-add'></i></button>
+			                            	</form>
+			                            </div>
 			                     	</div>
 			                     </div>
 	                    	<%}} else{
@@ -101,7 +108,14 @@
 			                        <div class="home__product-details">
 			                            <p class="home__product-name"><%=product.getProductName() %></p>
 			                            <p class="home__product-price"><%=product.getUnitPrice() %></p>
-			                            <a class="home__product-btn" href="ProductController?productid=<%=product.getProductID()%>">Xem chi tiết</a>
+			                            <div style="display: flex;justify-content: flex-end;gap:10px;align-items: center">
+			                            	<a class="home__product-btn" href="ProductController?productid=<%=product.getProductID()%>">Xem chi tiết</a>
+			                            	<form action="AddtocartController" method="post">
+			                            		<input type="hidden" name="productID" value="<%=product.getProductID()%>">
+			                            		<input type="hidden" name="unitPrice" value="<%=product.getUnitPrice()%>">
+			                            		<button class="addtocart-btn" style="padding:5px 10px;background-color: #56B280;color:#fff;border-radius: 6px;border:none;outline: none;"><i class='bx bx-cart-add'></i></button>
+			                            	</form>
+			                            </div>
 			                     	</div>
 			                     </div>
 	                        	<%} %>

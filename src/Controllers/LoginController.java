@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Model_BEAN.CustomerBEAN;
+import Model_BEAN.EmployeeBEAN;
 import Model_BO.CartBO;
 import Model_BO.CustomerBO;
+import Model_BO.EmployeeBO;
 
 /**
  * Servlet implementation class LoginController
@@ -33,8 +35,11 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		try {
 			CustomerBO customerBO = new CustomerBO();
+			EmployeeBO employeeBO = new EmployeeBO();
 			CartBO cartBO = new CartBO();
 			String userName = request.getParameter("userName");
 			String password = request.getParameter("password");
@@ -43,15 +48,21 @@ public class LoginController extends HttpServlet {
 			
 			if(userName != null && password != null) {
 				CustomerBEAN customer = customerBO.CustomerLogin(userName, password);
-				if(customer == null) {
+				EmployeeBEAN employee = employeeBO.Employee(userName, password);
+				if(customer == null && employee == null) {
 					request.setAttribute("warning", "Login Failed!");
 					request.getRequestDispatcher("Login.jsp").forward(request, response);
 				}
-				else {
-					session.setAttribute("user", (CustomerBEAN)customer);
-					session.setAttribute("count", (int)cartBO.CountCartDetail(customer.getCustomerID()));
-					request.getRequestDispatcher("HomeController").forward(request, response);
-				}
+				else
+					if(customer != null) {
+						session.setAttribute("user", (CustomerBEAN)customer);
+						session.setAttribute("count", (int)cartBO.CountCartDetail(customer.getCustomerID()));
+						request.getRequestDispatcher("ShopController").forward(request, response);
+					}
+					else if(employee != null) {
+						session.setAttribute("user", (EmployeeBEAN)employee);
+						request.getRequestDispatcher("AdminController").forward(request, response);
+					}
 			}
 			if(userName == null || password == null) {
 				request.getRequestDispatcher("Login.jsp").forward(request, response);

@@ -60,6 +60,16 @@ public class AddtocartController extends HttpServlet {
 						request.setAttribute("warning", "Failed!");
 						request.getRequestDispatcher("ProductController").forward(request, response);
 					}
+				}else if(productID != null && unitPrice != null) {
+					int check = cartDetailBO.AddToCartDetail(cartID, Long.parseLong(productID), 1, Long.parseLong(unitPrice));
+					if(check > 0) {
+						request.setAttribute("warning", "Success!");
+						session.setAttribute("count", cartBO.CountCartDetail(user.getCustomerID()));
+						request.getRequestDispatcher("ShopController").forward(request, response);
+					}else {
+						request.setAttribute("warning", "Failed!");
+						request.getRequestDispatcher("ShopController").forward(request, response);
+					}
 				}
 				else {
 					request.setAttribute("warning", "Please choose a product!");
@@ -67,7 +77,7 @@ public class AddtocartController extends HttpServlet {
 				}
 			} else {
 				request.setAttribute("warning", "Please log in!");
-				request.getRequestDispatcher("HomeController").forward(request, response);
+				request.getRequestDispatcher("LoginController").forward(request, response);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

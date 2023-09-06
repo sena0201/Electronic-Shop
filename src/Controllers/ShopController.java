@@ -109,7 +109,6 @@ public class ShopController extends HttpServlet {
 			}
 
 			ListOfCategories = categoryBO.ListOfCategories();
-			
 			request.setAttribute("filter", filter);
 			request.setAttribute("searchValue", searchValue);
 			request.setAttribute("SearchProducts", SearchProducts);

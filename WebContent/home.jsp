@@ -20,7 +20,7 @@
 	<div class="app">
 		<%@ include file="layout/header.jsp" %>
 		
-		<div class="home" style="background: url(public/img/bg-image.png);">
+		<div class="home" style="background: url(public/img/bg-image.png);background-repeat: no-repeat; background-position: center;background-size: cover;">
             <div class="home__card">
                 <h2 class="home__card-title">Wellcome To My Shop</h2>
                 <a href="ShopController" class="home__card-button">Shoping now <i class='bx bx-right-arrow-alt'></i></a>
